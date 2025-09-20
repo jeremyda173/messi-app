@@ -34,18 +34,10 @@
 
 ## 🚀 Características Principales
 
-- 🏠 **Home**: Biografía editable, hero dinámico y estadísticas rápidas animadas  
-- 🏆 **Match Games**: CRUD completo de partidos con filtros avanzados  
-- 👨‍👩‍👧‍👦 **Family**: Árbol genealógico interactivo con CRUD y animaciones suaves  
-- 📊 **Statistics**: Dashboard analítico con KPIs, gráficos y tabla de rivales  
-
----
-
-## 🖼️ Demo Visual
-
-| Home | Estadísticas | Partidos | Familia |
-|------|--------------|----------|---------|
-| ![home](https://placehold.co/300x180?text=Home) | ![stats](https://placehold.co/300x180?text=Stats) | ![matches](https://placehold.co/300x180?text=Matches) | ![family](https://placehold.co/300x180?text=Family) |
+✨ **Home** – Biografía editable, hero dinámico y estadísticas rápidas animadas  
+🏆 **Match Games** – CRUD completo de partidos con filtros avanzados  
+👨‍👩‍👧‍👦 **Family** – Árbol genealógico interactivo con animaciones suaves  
+📊 **Statistics** – Dashboard analítico con KPIs, gráficos y tabla de rivales  
 
 ---
 
