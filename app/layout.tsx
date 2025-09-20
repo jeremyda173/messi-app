@@ -11,7 +11,13 @@ import { Suspense } from "react"
 export const metadata: Metadata = {
   title: "Lionel Messi - Official App",
   description: "Aplicación oficial de Lionel Messi con estadísticas, partidos, familia y más",
+  icons: {
+    icon: "/favicon.svg",       // ícono principal
+    shortcut: "/favicon.svg",   // accesos directos
+    apple: "/favicon.svg",      // para iOS/Apple
+  },
 }
+
 
 export default function RootLayout({
   children,
