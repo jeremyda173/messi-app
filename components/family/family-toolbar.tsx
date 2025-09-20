@@ -22,14 +22,20 @@ export function FamilyToolbar({ family, onImport }: FamilyToolbarProps) {
 
   const handleExport = () => {
     const data = storage.exportData()
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" })
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    })
     const url = URL.createObjectURL(blob)
-    const a = document.createElement("a")
-    a.href = url
-    a.download = `messi-family-${new Date().toISOString().split("T")[0]}.json`
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
+
+    if (typeof document !== "undefined") {
+      const a = document.createElement("a")
+      a.href = url
+      a.download = `messi-family-${new Date().toISOString().split("T")[0]}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+    }
+
     URL.revokeObjectURL(url)
 
     toast({
@@ -93,7 +99,13 @@ export function FamilyToolbar({ family, onImport }: FamilyToolbarProps) {
             <div className="space-y-4">
               <div>
                 <Label htmlFor="import-file">Seleccionar archivo JSON</Label>
-                <Input id="import-file" type="file" accept=".json" onChange={handleImport} className="mt-1" />
+                <Input
+                  id="import-file"
+                  type="file"
+                  accept=".json"
+                  onChange={handleImport}
+                  className="mt-1"
+                />
               </div>
               <p className="text-sm text-muted-foreground">
                 Selecciona un archivo JSON exportado previamente para importar los miembros de la familia.
