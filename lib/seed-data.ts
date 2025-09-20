@@ -17,6 +17,7 @@ export const seedMatches: Match[] = [
     venue: "home",
     createdAt: "2024-03-15T20:00:00Z",
     updatedAt: "2024-03-15T20:00:00Z",
+    location: ""
   },
   {
     id: "2",
@@ -34,6 +35,7 @@ export const seedMatches: Match[] = [
     venue: "away",
     createdAt: "2024-03-08T22:30:00Z",
     updatedAt: "2024-03-08T22:30:00Z",
+    location: ""
   },
   {
     id: "3",
@@ -51,6 +53,7 @@ export const seedMatches: Match[] = [
     venue: "away",
     createdAt: "2024-02-28T21:00:00Z",
     updatedAt: "2024-02-28T21:00:00Z",
+    location: ""
   },
   {
     id: "4",
@@ -68,6 +71,7 @@ export const seedMatches: Match[] = [
     venue: "home",
     createdAt: "2024-02-20T19:30:00Z",
     updatedAt: "2024-02-20T19:30:00Z",
+    location: ""
   },
   {
     id: "5",
@@ -85,6 +89,7 @@ export const seedMatches: Match[] = [
     venue: "home",
     createdAt: "2024-02-12T20:00:00Z",
     updatedAt: "2024-02-12T20:00:00Z",
+    location: ""
   },
   {
     id: "6",
@@ -102,6 +107,7 @@ export const seedMatches: Match[] = [
     venue: "away",
     createdAt: "2024-01-30T21:15:00Z",
     updatedAt: "2024-01-30T21:15:00Z",
+    location: ""
   },
 ]
 
