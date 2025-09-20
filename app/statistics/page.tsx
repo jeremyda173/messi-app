@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { HeaderNav } from "@/components/header-nav"
 import { Footer } from "@/components/footer"
 import { StatsKpis } from "@/components/statistics/stats-kpis"
@@ -15,7 +15,7 @@ export default function StatisticsPage() {
   const [matches, setMatches] = useState<Match[]>([])
   const [filteredMatches, setFilteredMatches] = useState<Match[]>([])
 
-  // Load matches on component mount
+  // cargar partidos al montar
   useEffect(() => {
     let loadedMatches = storage.getMatches()
     if (loadedMatches.length === 0) {
@@ -26,31 +26,34 @@ export default function StatisticsPage() {
     setFilteredMatches(loadedMatches)
   }, [])
 
-  const handleFilterChange = (filtered: Match[]) => {
+  // 🔑 memoizar para evitar loop infinito
+  const handleFilterChange = useCallback((filtered: Match[]) => {
     setFilteredMatches(filtered)
-  }
+  }, [])
 
   return (
     <div className="min-h-screen flex flex-col p-2">
       <HeaderNav />
       <main className="flex-1 px-4 md:px-8 py-8">
         <div className="flex flex-col space-y-8">
-          {/* Header */}
+          {/* Título */}
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold">Estadísticas</h1>
-            <p className="text-muted-foreground">Análisis completo del rendimiento de Lionel Messi</p>
+            <p className="text-muted-foreground">
+              Análisis completo del rendimiento de Lionel Messi
+            </p>
           </div>
 
-          {/* Filters */}
+          {/* Filtros */}
           <StatsFilters matches={matches} onFilterChange={handleFilterChange} />
 
           {/* KPIs */}
           <StatsKpis matches={filteredMatches} />
 
-          {/* Charts */}
+          {/* Gráficas */}
           <StatsCharts matches={filteredMatches} />
 
-          {/* Opponents Table */}
+          {/* Tabla de oponentes */}
           <OpponentsTable matches={filteredMatches} />
         </div>
       </main>
