@@ -32,7 +32,7 @@ interface MatchFormProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   match?: Match | null
-  onSubmit: (data: MatchFormData) => void
+onSubmit: (data: Omit<Match, "id" | "createdAt" | "updatedAt">) => void
 }
 
 export function MatchForm({ open, onOpenChange, match, onSubmit }: MatchFormProps) {
