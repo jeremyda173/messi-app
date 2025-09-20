@@ -3,33 +3,46 @@ import type { Match, FamilyMember } from "./types"
 const MATCHES_KEY = "messi-matches"
 const FAMILY_KEY = "messi-family"
 
+const isBrowser = typeof window !== "undefined" && typeof window.localStorage !== "undefined"
+
+function safeGet<T>(key: string, fallback: T): T {
+  if (!isBrowser) return fallback
+  try {
+    const raw = window.localStorage.getItem(key)
+    return raw ? (JSON.parse(raw) as T) : fallback
+  } catch {
+    return fallback
+  }
+}
+
+function safeSet<T>(key: string, value: T) {
+  if (!isBrowser) return
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    // opcional: manejar errores de quota
+  }
+}
+
 export const storage = {
   // Matches
-  getMatches: (): Match[] => {
-    if (typeof window === "undefined") return []
-    const data = localStorage.getItem(MATCHES_KEY)
-    return data ? JSON.parse(data) : []
+  getMatches(): Match[] {
+    return safeGet<Match[]>(MATCHES_KEY, [])
   },
-
-  saveMatches: (matches: Match[]) => {
-    if (typeof window === "undefined") return
-    localStorage.setItem(MATCHES_KEY, JSON.stringify(matches))
+  saveMatches(matches: Match[]) {
+    safeSet(MATCHES_KEY, matches)
   },
 
   // Family
-  getFamily: (): FamilyMember[] => {
-    if (typeof window === "undefined") return []
-    const data = localStorage.getItem(FAMILY_KEY)
-    return data ? JSON.parse(data) : []
+  getFamily(): FamilyMember[] {
+    return safeGet<FamilyMember[]>(FAMILY_KEY, [])
   },
-
-  saveFamily: (family: FamilyMember[]) => {
-    if (typeof window === "undefined") return
-    localStorage.setItem(FAMILY_KEY, JSON.stringify(family))
+  saveFamily(family: FamilyMember[]) {
+    safeSet(FAMILY_KEY, family)
   },
 
   // Export/Import
-  exportData: () => {
+  exportData() {
     const matches = storage.getMatches()
     const family = storage.getFamily()
     return {
@@ -38,8 +51,7 @@ export const storage = {
       exportDate: new Date().toISOString(),
     }
   },
-
-  importData: (data: { matches?: Match[]; family?: FamilyMember[] }) => {
+  importData(data: { matches?: Match[]; family?: FamilyMember[] }) {
     if (data.matches) storage.saveMatches(data.matches)
     if (data.family) storage.saveFamily(data.family)
   },
