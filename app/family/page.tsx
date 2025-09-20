@@ -183,7 +183,7 @@ export default function FamilyPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <HeaderNav />
-      <main className="flex-1 container py-8">
+        <main className="flex-1 px-4 md:px-8 py-8">
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
