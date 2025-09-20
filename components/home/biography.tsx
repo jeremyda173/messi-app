@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
@@ -20,13 +20,14 @@ Su estilo de juego único, caracterizado por su velocidad, técnica excepcional 
 export function Biography() {
   const [isEditing, setIsEditing] = useState(false)
   const [biography, setBiography] = useState(defaultBiography)
-  const [tempBiography, setTempBiography] = useState(biography)
+  const [tempBiography, setTempBiography] = useState(defaultBiography)
 
   const handleSave = () => {
     setBiography(tempBiography)
     setIsEditing(false)
-    // Here you would typically save to localStorage or an API
-    localStorage.setItem("messi-biography", tempBiography)
+    if (typeof window !== "undefined") {
+      localStorage.setItem("messi-biography", tempBiography)
+    }
   }
 
   const handleCancel = () => {
@@ -34,14 +35,15 @@ export function Biography() {
     setIsEditing(false)
   }
 
-  // Load from localStorage on component mount
-  useState(() => {
-    const saved = localStorage.getItem("messi-biography")
-    if (saved) {
-      setBiography(saved)
-      setTempBiography(saved)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("messi-biography")
+      if (saved) {
+        setBiography(saved)
+        setTempBiography(saved)
+      }
     }
-  })
+  }, [])
 
   return (
     <section className="py-16 bg-muted/30">
@@ -99,7 +101,10 @@ export function Biography() {
               ) : (
                 <div className="prose prose-gray dark:prose-invert max-w-none">
                   {biography.split("\n\n").map((paragraph, index) => (
-                    <p key={index} className="text-base leading-relaxed mb-4 text-muted-foreground">
+                    <p
+                      key={index}
+                      className="text-base leading-relaxed mb-4 text-muted-foreground"
+                    >
                       {paragraph}
                     </p>
                   ))}
