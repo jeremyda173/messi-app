@@ -24,6 +24,7 @@ const matchSchema = z.object({
   passAccuracy: z.number().min(0).max(100),
   result: z.enum(["win", "draw", "loss"]),
   venue: z.enum(["home", "away"]),
+  location: z.string().min(1, "La ubicación es requerida"),
 })
 
 type MatchFormData = z.infer<typeof matchSchema>
