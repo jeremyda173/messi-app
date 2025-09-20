@@ -1,5 +1,5 @@
 export interface Match {
-  location: any
+  location: string
   id: string
   date: string
   competition: string
