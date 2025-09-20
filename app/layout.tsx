@@ -12,9 +12,12 @@ export const metadata: Metadata = {
   title: "Lionel Messi - Official App",
   description: "Aplicación oficial de Lionel Messi con estadísticas, partidos, familia y más",
   icons: {
-    icon: "/favicon.svg",       // ícono principal
-    shortcut: "/favicon.svg",   // accesos directos
-    apple: "/favicon.svg",      // para iOS/Apple
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/placeholder-logo.png", type: "image/png" },
+    ],
+    apple: "/placeholder-logo.png",
   },
 }
 
