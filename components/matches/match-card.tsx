@@ -108,7 +108,6 @@ export function MatchCard({ match, onEdit, onDelete, onDuplicate }: MatchCardPro
                   <DropdownMenuItem
                     className="text-destructive focus:text-destructive"
                     onClick={() => {
-                      console.debug("Eliminar ->", match.id)
                       onDelete(match.id)
                     }}
                   >
