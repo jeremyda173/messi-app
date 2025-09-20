@@ -20,12 +20,10 @@ function safeSet<T>(key: string, value: T) {
   try {
     window.localStorage.setItem(key, JSON.stringify(value))
   } catch {
-    // opcional: manejar errores de quota
   }
 }
 
 export const storage = {
-  // Matches
   getMatches(): Match[] {
     return safeGet<Match[]>(MATCHES_KEY, [])
   },
@@ -33,7 +31,6 @@ export const storage = {
     safeSet(MATCHES_KEY, matches)
   },
 
-  // Family
   getFamily(): FamilyMember[] {
     return safeGet<FamilyMember[]>(FAMILY_KEY, [])
   },
