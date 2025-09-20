@@ -15,7 +15,6 @@ export default function StatisticsPage() {
   const [matches, setMatches] = useState<Match[]>([])
   const [filteredMatches, setFilteredMatches] = useState<Match[]>([])
 
-  // cargar partidos al montar
   useEffect(() => {
     let loadedMatches = storage.getMatches()
     if (loadedMatches.length === 0) {
@@ -26,7 +25,6 @@ export default function StatisticsPage() {
     setFilteredMatches(loadedMatches)
   }, [])
 
-  // 🔑 memoizar para evitar loop infinito
   const handleFilterChange = useCallback((filtered: Match[]) => {
     setFilteredMatches(filtered)
   }, [])
@@ -36,7 +34,6 @@ export default function StatisticsPage() {
       <HeaderNav />
       <main className="flex-1 px-4 md:px-8 py-8">
         <div className="flex flex-col space-y-8">
-          {/* Título */}
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold">Estadísticas</h1>
             <p className="text-muted-foreground">
