@@ -14,53 +14,51 @@ interface StatsFiltersProps {
 }
 
 export function StatsFilters({ matches, onFilterChange }: StatsFiltersProps) {
-  const [selectedYear, setSelectedYear] = useState<string>("all")
-  const [selectedCompetition, setSelectedCompetition] = useState<string>("all")
-  const [selectedTeam, setSelectedTeam] = useState<string>("all")
-  const [selectedResult, setSelectedResult] = useState<string>("all")
+  const [selectedYear, setSelectedYear] = useState("all")
+  const [selectedCompetition, setSelectedCompetition] = useState("all")
+  const [selectedTeam, setSelectedTeam] = useState("all")
+  const [selectedResult, setSelectedResult] = useState("all")
   const [dateFrom, setDateFrom] = useState("")
   const [dateTo, setDateTo] = useState("")
 
-  // Get unique values for filter options
-  const years = Array.from(new Set(matches.map((match) => new Date(match.date).getFullYear().toString())))
+  // valores únicos
+  const years = Array.from(new Set(matches.map((m) => new Date(m.date).getFullYear().toString())))
     .sort()
     .reverse()
-  const competitions = Array.from(new Set(matches.map((match) => match.competition))).sort()
-  const teams = Array.from(new Set(matches.map((match) => match.team))).sort()
+  const competitions = Array.from(new Set(matches.map((m) => m.competition))).sort()
+  const teams = Array.from(new Set(matches.map((m) => m.team))).sort()
 
   useEffect(() => {
     let filtered = matches
 
-    // Year filter
     if (selectedYear !== "all") {
-      filtered = filtered.filter((match) => new Date(match.date).getFullYear().toString() === selectedYear)
+      filtered = filtered.filter(
+        (m) => new Date(m.date).getFullYear().toString() === selectedYear
+      )
     }
-
-    // Competition filter
     if (selectedCompetition !== "all") {
-      filtered = filtered.filter((match) => match.competition === selectedCompetition)
+      filtered = filtered.filter((m) => m.competition === selectedCompetition)
     }
-
-    // Team filter
     if (selectedTeam !== "all") {
-      filtered = filtered.filter((match) => match.team === selectedTeam)
+      filtered = filtered.filter((m) => m.team === selectedTeam)
     }
-
-    // Result filter
     if (selectedResult !== "all") {
-      filtered = filtered.filter((match) => match.result === selectedResult)
+      filtered = filtered.filter((m) => m.result === selectedResult)
     }
 
-    // Date range filter
     if (dateFrom) {
-      filtered = filtered.filter((match) => match.date >= dateFrom)
+      const from = new Date(dateFrom)
+      filtered = filtered.filter((m) => new Date(m.date) >= from)
     }
     if (dateTo) {
-      filtered = filtered.filter((match) => match.date <= dateTo)
+      const to = new Date(dateTo)
+      filtered = filtered.filter((m) => new Date(m.date) <= to)
     }
 
     onFilterChange(filtered)
-  }, [matches, selectedYear, selectedCompetition, selectedTeam, selectedResult, dateFrom, dateTo, onFilterChange])
+    // 👇 evitamos dependencia de onFilterChange (ya es estable con useCallback)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matches, selectedYear, selectedCompetition, selectedTeam, selectedResult, dateFrom, dateTo])
 
   const clearFilters = () => {
     setSelectedYear("all")
@@ -85,15 +83,16 @@ export function StatsFilters({ matches, onFilterChange }: StatsFiltersProps) {
         <Filter className="w-4 h-4 text-muted-foreground" />
         <span className="text-sm font-medium">Filtros de Análisis</span>
         {hasActiveFilters && (
-          <Button variant="ghost" size="sm" onClick={clearFilters} className="h-6 px-2">
+          <Button type="button" variant="ghost" size="sm" onClick={clearFilters} className="h-6 px-2">
             <X className="w-3 h-3 mr-1" />
             Limpiar
           </Button>
         )}
       </div>
 
+      {/* Selects */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Year */}
+        {/* Año */}
         <Select value={selectedYear} onValueChange={setSelectedYear}>
           <SelectTrigger>
             <SelectValue placeholder="Año" />
@@ -108,37 +107,37 @@ export function StatsFilters({ matches, onFilterChange }: StatsFiltersProps) {
           </SelectContent>
         </Select>
 
-        {/* Competition */}
+        {/* Competencia */}
         <Select value={selectedCompetition} onValueChange={setSelectedCompetition}>
           <SelectTrigger>
             <SelectValue placeholder="Competencia" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todas las competencias</SelectItem>
-            {competitions.map((competition) => (
-              <SelectItem key={competition} value={competition}>
-                {competition}
+            {competitions.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        {/* Team */}
+        {/* Equipo */}
         <Select value={selectedTeam} onValueChange={setSelectedTeam}>
           <SelectTrigger>
             <SelectValue placeholder="Equipo" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos los equipos</SelectItem>
-            {teams.map((team) => (
-              <SelectItem key={team} value={team}>
-                {team}
+            {teams.map((t) => (
+              <SelectItem key={t} value={t}>
+                {t}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
 
-        {/* Result */}
+        {/* Resultado */}
         <Select value={selectedResult} onValueChange={setSelectedResult}>
           <SelectTrigger>
             <SelectValue placeholder="Resultado" />
@@ -152,7 +151,7 @@ export function StatsFilters({ matches, onFilterChange }: StatsFiltersProps) {
         </Select>
       </div>
 
-      {/* Date Range */}
+      {/* Rango de fechas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-md">
         <div>
           <label className="text-sm font-medium mb-1 block">Desde</label>
@@ -164,31 +163,39 @@ export function StatsFilters({ matches, onFilterChange }: StatsFiltersProps) {
         </div>
       </div>
 
-      {/* Active Filters */}
+      {/* Badges */}
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
           {selectedYear !== "all" && (
             <Badge variant="secondary" className="gap-1">
               {selectedYear}
-              <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedYear("all")} />
+              <button type="button" onClick={() => setSelectedYear("all")}>
+                <X className="w-3 h-3" />
+              </button>
             </Badge>
           )}
           {selectedCompetition !== "all" && (
             <Badge variant="secondary" className="gap-1">
               {selectedCompetition}
-              <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedCompetition("all")} />
+              <button type="button" onClick={() => setSelectedCompetition("all")}>
+                <X className="w-3 h-3" />
+              </button>
             </Badge>
           )}
           {selectedTeam !== "all" && (
             <Badge variant="secondary" className="gap-1">
               {selectedTeam}
-              <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedTeam("all")} />
+              <button type="button" onClick={() => setSelectedTeam("all")}>
+                <X className="w-3 h-3" />
+              </button>
             </Badge>
           )}
           {selectedResult !== "all" && (
             <Badge variant="secondary" className="gap-1">
               {selectedResult === "win" ? "Victoria" : selectedResult === "draw" ? "Empate" : "Derrota"}
-              <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedResult("all")} />
+              <button type="button" onClick={() => setSelectedResult("all")}>
+                <X className="w-3 h-3" />
+              </button>
             </Badge>
           )}
         </div>
