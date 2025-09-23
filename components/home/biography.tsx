@@ -46,7 +46,8 @@ export function Biography() {
   }, [])
 
   return (
-    <section className="py-16 bg-muted/30">
+  <section className="py-16 bg-muted/30 flex flex-col items-center justify-center text-center">
+
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
