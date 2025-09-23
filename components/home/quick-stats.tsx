@@ -113,7 +113,8 @@ export function QuickStats() {
   ]
 
   return (
-    <section className="py-16">
+   <section className="flex-1 px-4 md:px-8 py-8 flex flex-col items-center justify-center text-center">
+
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
