@@ -41,16 +41,12 @@ export default function StatisticsPage() {
             </p>
           </div>
 
-          {/* Filtros */}
           <StatsFilters matches={matches} onFilterChange={handleFilterChange} />
 
-          {/* KPIs */}
           <StatsKpis matches={filteredMatches} />
 
-          {/* Gráficas */}
           <StatsCharts matches={filteredMatches} />
 
-          {/* Tabla de oponentes */}
           <OpponentsTable matches={filteredMatches} />
         </div>
       </main>
