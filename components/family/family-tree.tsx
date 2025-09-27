@@ -118,7 +118,6 @@ export function FamilyTree({ family, onEdit, onDelete }: FamilyTreeProps) {
 
   return (
     <div className="space-y-8">
-      {/* Parents Generation */}
       {parents.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-center">Padres</h2>
@@ -130,11 +129,9 @@ export function FamilyTree({ family, onEdit, onDelete }: FamilyTreeProps) {
         </div>
       )}
 
-      {/* Central Generation - Messi and Spouse */}
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-center">Familia Nuclear</h2>
         <div className="flex flex-col items-center space-y-6">
-          {/* Messi and Spouse */}
           <div className="flex flex-col md:flex-row items-center gap-6">
             {messi && <PersonCard person={messi} />}
             {spouse && (
@@ -146,13 +143,9 @@ export function FamilyTree({ family, onEdit, onDelete }: FamilyTreeProps) {
               </>
             )}
           </div>
-
-          {/* Connection Line to Children */}
           {children.length > 0 && <div className="w-px h-8 bg-border hidden md:block" />}
         </div>
       </div>
-
-      {/* Children Generation */}
       {children.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-center">Hijos</h2>
@@ -163,8 +156,6 @@ export function FamilyTree({ family, onEdit, onDelete }: FamilyTreeProps) {
           </div>
         </div>
       )}
-
-      {/* Siblings */}
       {siblings.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-center">Hermanos</h2>
@@ -175,8 +166,6 @@ export function FamilyTree({ family, onEdit, onDelete }: FamilyTreeProps) {
           </div>
         </div>
       )}
-
-      {/* Other Family Members */}
       {others.length > 0 && (
         <div className="space-y-4">
           <h2 className="text-xl font-semibold text-center">Otros Familiares</h2>
