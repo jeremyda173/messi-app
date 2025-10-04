@@ -6,7 +6,7 @@ import { QuickStats } from "@/components/home/quick-stats"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col p-2">
+    <div className="min-h-screen flex flex-col">
       <HeaderNav />
       <main className="flex-1 px-4 md:px-8 py-8">
         <Hero />

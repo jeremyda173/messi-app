@@ -166,7 +166,7 @@ export default function FamilyPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex flex-col p-2">
+      <div className="min-h-screen flex flex-col">
         <HeaderNav />
         <main className="flex-1 container py-8 px-4">
           <div className="animate-pulse space-y-6">

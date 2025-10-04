@@ -30,7 +30,7 @@ export default function StatisticsPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col p-2">
+    <div className="min-h-screen flex flex-col">
       <HeaderNav />
       <main className="flex-1 px-4 md:px-8 py-8">
         <div className="flex flex-col space-y-8">
