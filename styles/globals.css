@@ -120,5 +120,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    padding: 0 !important;
+  }
+  footer {
+    padding: 0 !important;
   }
 }
