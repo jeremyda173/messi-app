@@ -33,7 +33,6 @@ export function Footer() {
             </linearGradient>
           </defs>
           
-          {/* Wave 1 - Main dark wave */}
           <motion.path
             d="M0,60 C150,0 300,180 450,60 C600,0 750,180 900,60 C1050,0 1200,180 1200,60 L1200,300 L0,300 Z"
             fill="url(#darkWave1)"
@@ -53,7 +52,6 @@ export function Footer() {
             }}
           />
           
-          {/* Wave 2 - Secondary wave */}
           <motion.path
             d="M0,100 C200,40 400,220 600,100 C800,40 1000,220 1200,100 L1200,300 L0,300 Z"
             fill="url(#darkWave2)"
@@ -74,7 +72,6 @@ export function Footer() {
             }}
           />
           
-          {/* Wave 3 - Accent wave */}
           <motion.path
             d="M0,140 C250,80 500,260 750,140 C1000,80 1200,260 1200,140 L1200,300 L0,300 Z"
             fill="url(#darkWave3)"
@@ -101,7 +98,6 @@ export function Footer() {
       <div className="relative z-10 bg-gradient-to-b from-slate-800/10 via-slate-900/15 to-slate-950/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-6 lg:px-8 py-12">
-            {/* Logo and Description */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
