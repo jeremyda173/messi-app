@@ -94,7 +94,6 @@ export function Footer() {
         </svg>
       </div>
 
-      {/* Content */}
       <div className="relative z-10 bg-gradient-to-b from-slate-800/10 via-slate-900/15 to-slate-950/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-6 lg:px-8 py-12">
