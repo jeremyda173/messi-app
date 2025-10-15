@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { HeaderNav } from "@/components/header-nav"
 import { Footer } from "@/components/footer"
+import { CareerStats } from "@/components/statistics/career-stats"
 import { StatsKpis } from "@/components/statistics/stats-kpis"
 import { StatsCharts } from "@/components/statistics/stats-charts"
 import { StatsFilters } from "@/components/statistics/stats-filters"
@@ -48,6 +49,8 @@ export default function StatisticsPage() {
           <StatsCharts matches={filteredMatches} />
 
           <OpponentsTable matches={filteredMatches} />
+
+          <CareerStats />
         </div>
       </main>
       <Footer />
