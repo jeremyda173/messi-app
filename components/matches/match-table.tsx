@@ -71,7 +71,14 @@ export function MatchTable({ matches, onEdit, onDelete, onDuplicate }: MatchTabl
               <TableCell>{match.team}</TableCell>
               <TableCell>{match.opponent}</TableCell>
               <TableCell>
-                <Badge className={`${resultColors[match.result]} text-xs`}>{resultLabels[match.result]}</Badge>
+                <div className="flex items-center gap-2">
+                    <Badge className={`${resultColors[match.result]} text-xs`}>{resultLabels[match.result]}</Badge>
+                    {(match.teamScore !== undefined && match.teamScore !== null && match.opponentScore !== undefined && match.opponentScore !== null) && (
+                        <span className="text-xs font-mono font-medium whitespace-nowrap">
+                            {match.teamScore}-{match.opponentScore}
+                        </span>
+                    )}
+                </div>
               </TableCell>
               <TableCell>
                 <Badge variant="secondary" className="text-xs">
