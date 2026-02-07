@@ -138,13 +138,13 @@ export function MatchCard({ match, onEdit, onDelete, onDuplicate }: MatchCardPro
                 {/* Score / VS */}
                 <div className="flex flex-col items-center px-4">
                     <div className="text-3xl font-black tracking-tighter tabular-nums flex items-center gap-3">
-                        <span className="text-foreground">{match.goals > 0 ? match.goals : '-'}</span>
+                        <span className="text-foreground">
+                          {match.teamScore !== undefined && match.teamScore !== null ? match.teamScore : (match.goals > 0 ? match.goals : '-')}
+                        </span>
                          <span className="text-muted-foreground/30 text-xl">VS</span>
-                        <span className="text-muted-foreground">-</span> 
-                        {/* Note: Opponent score isn't in the type, assuming user tracks Messi stats primarily. 
-                            If opponent score existed, it would go here. 
-                            For now, keeping it focused on the matchup visuals.
-                        */}
+                        <span className="text-muted-foreground">
+                          {match.opponentScore !== undefined && match.opponentScore !== null ? match.opponentScore : '-'}
+                        </span>
                     </div>
                     <Badge variant="outline" className={cn("mt-2 border px-2 py-0.5 text-[10px] uppercase tracking-wider font-bold", resultColors[match.result])}>
                         {match.result === 'win' ? 'Victoria' : match.result === 'draw' ? 'Empate' : 'Derrota'}
