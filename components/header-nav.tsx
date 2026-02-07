@@ -33,8 +33,10 @@ export function HeaderNav() {
   return (
     <header 
       className={cn(
-        "fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b border-transparent",
-        scrolled ? "bg-background/60 backdrop-blur-xl border-border/40 shadow-sm" : "bg-transparent"
+        "fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b",
+        scrolled 
+          ? "bg-background/80 backdrop-blur-xl border-border/40 shadow-sm" 
+          : "bg-background/20 backdrop-blur-md border-white/10"
       )}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
