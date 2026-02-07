@@ -56,7 +56,7 @@ export default function StatisticsPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <HeaderNav />
-      <main className="flex-1 px-4 md:px-8 pt-24 pb-8">
+      <main className="flex-1 px-4 md:px-8 pt-32 pb-8">
         <div className="flex flex-col space-y-8">
           <div className="text-center space-y-2">
             <h1 className="text-3xl font-bold">Estadísticas</h1>
