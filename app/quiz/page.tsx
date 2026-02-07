@@ -79,7 +79,7 @@ export default function QuizPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <HeaderNav />
-      <main className="flex-1 pt-24 pb-12 px-4 md:px-8 flex items-center justify-center">
+      <main className="flex-1 pt-32 pb-12 px-4 md:px-8 flex items-center justify-center">
         <div className="w-full max-w-2xl mx-auto">
           
           {!showResult ? (
