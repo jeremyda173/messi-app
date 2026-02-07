@@ -25,6 +25,8 @@ const matchSchema = z.object({
   result: z.enum(["win", "draw", "loss"]),
   venue: z.enum(["home", "away"]),
   location: z.string().min(1, "La ubicación es requerida"),
+  teamScore: z.number().min(0).optional(),
+  opponentScore: z.number().min(0).optional(),
 })
 
 type MatchFormData = z.infer<typeof matchSchema>
@@ -52,6 +54,8 @@ export function MatchForm({ open, onOpenChange, match, onSubmit }: MatchFormProp
       passAccuracy: 85,
       result: "win",
       venue: "home",
+      teamScore: 0,
+      opponentScore: 0,
     },
   })
 
@@ -70,6 +74,8 @@ export function MatchForm({ open, onOpenChange, match, onSubmit }: MatchFormProp
         passAccuracy: match.passAccuracy,
         result: match.result,
         venue: match.venue,
+        teamScore: match.teamScore || 0,
+        opponentScore: match.opponentScore || 0,
       })
     } else {
       form.reset({
@@ -85,6 +91,8 @@ export function MatchForm({ open, onOpenChange, match, onSubmit }: MatchFormProp
         passAccuracy: 85,
         result: "win",
         venue: "home",
+        teamScore: 0,
+        opponentScore: 0,
       })
     }
   }, [match, form])
@@ -200,6 +208,46 @@ export function MatchForm({ open, onOpenChange, match, onSubmit }: MatchFormProp
                         <SelectItem value="away">Visitante</SelectItem>
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="teamScore"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Goles Equipo</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min="0"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="opponentScore"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Goles Oponente</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        min="0"
+                        {...field}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
