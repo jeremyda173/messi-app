@@ -12,6 +12,8 @@ export interface Match {
   passes: number
   passAccuracy: number
   result: "win" | "draw" | "loss"
+  teamScore?: number
+  opponentScore?: number
   venue: "home" | "away"
   createdAt: string
   updatedAt: string
