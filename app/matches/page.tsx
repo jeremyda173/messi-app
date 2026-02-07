@@ -152,7 +152,7 @@ export default function MatchesPage() {
     <div className="min-h-screen flex flex-col bg-background">
       <HeaderNav />
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-8 space-y-8">
+        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-8 space-y-8">
           <div className="rounded-2xl border bg-card text-card-foreground shadow-sm p-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
