@@ -17,7 +17,6 @@ interface TrophyItem {
   year?: string
   years?: string
   size?: string
-  image?: string // Added image property
 }
 
 const trophies: { category: string; items: TrophyItem[] }[] = [
@@ -100,15 +99,9 @@ function TrophyCard({ item }: { item: TrophyItem }) {
     >
         <div style={{ transform: "translateZ(50px)" }} className="relative z-10 p-6 h-full flex flex-col justify-between">
             <div className="flex items-start justify-between mb-4">
-                {item.image ? (
-                     <div className="relative w-full h-32 mb-2">
-                        <img src={item.image} alt={item.name} className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]" />
-                     </div>
-                ) : (
-                    <div className={cn("p-3 rounded-2xl bg-background/50 backdrop-blur-md shadow-sm", item.color)}>
-                        <Icon className="w-8 h-8" />
-                    </div>
-                )}
+                <div className={cn("p-3 rounded-2xl bg-background/50 backdrop-blur-md shadow-sm", item.color)}>
+                    <Icon className="w-8 h-8" />
+                </div>
                 <span className="text-5xl font-black text-foreground/10 group-hover:text-foreground/20 transition-colors">
                     {item.count}
                 </span>
