@@ -125,7 +125,7 @@ export default function TrophiesPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background overflow-hidden">
       <HeaderNav />
-      <main className="flex-1 pt-24 pb-12 px-4 md:px-8">
+      <main className="flex-1 pt-48 pb-12 px-4 md:px-8">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4">
