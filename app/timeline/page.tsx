@@ -85,7 +85,7 @@ export default function TimelinePage() {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <HeaderNav />
-      <main className="flex-1 pt-24 pb-12 px-4 md:px-8">
+      <main className="flex-1 pt-32 pb-12 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 space-y-4">
              <h1 className="text-4xl md:text-5xl font-black tracking-tight">Línea de Tiempo</h1>
