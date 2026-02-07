@@ -28,7 +28,7 @@ const trophies: { category: string; items: TrophyItem[] }[] = [
       { name: "Copa América", count: 2, year: "2021, 2024", icon: Trophy, color: "text-sky-400", bg: "bg-sky-400/10", border: "border-sky-400/20" },
       { name: "Finalissima", count: 1, year: "2022", icon: Star, color: "text-indigo-400", bg: "bg-indigo-400/10", border: "border-indigo-400/20" },
       { name: "Medalla de Oro Olímpica", count: 1, year: "2008", icon: Medal, color: "text-yellow-200", bg: "bg-yellow-200/10", border: "border-yellow-200/20" },
-       { name: "Mundial Sub-20", count: 1, year: "2005", icon: Trophy, color: "text-slate-300", bg: "bg-slate-300/10", border: "border-slate-300/20" },
+      { name: "Mundial Sub-20", count: 1, year: "2005", icon: Trophy, color: "text-slate-300", bg: "bg-slate-300/10", border: "border-slate-300/20" },
     ]
   },
   {
