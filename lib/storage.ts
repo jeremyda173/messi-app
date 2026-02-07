@@ -1,6 +1,6 @@
 import type { Match, FamilyMember } from "./types"
 
-const MATCHES_KEY = "messi-matches"
+const MATCHES_KEY = "messi-matches-v2"
 const FAMILY_KEY = "messi-family"
 
 const isBrowser = typeof window !== "undefined" && typeof window.localStorage !== "undefined"
