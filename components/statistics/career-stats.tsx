@@ -1,8 +1,10 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
-import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronDown, Trophy, Activity, Target, Zap } from "lucide-react"
+import { useState, memo } from "react"
+import { cn } from "@/lib/utils"
+import { Badge } from "@/components/ui/badge"
 
 type TeamStats = {
   name: string
@@ -15,7 +17,9 @@ type TeamStats = {
     from: string
     via: string
     to: string
+    text: string
   }
+  logo?: string
 }
 
 const teams: TeamStats[] = [
@@ -29,7 +33,8 @@ const teams: TeamStats[] = [
     colors: {
       from: "#A50044",
       via: "#004D98",
-      to: "#EDBB00"
+      to: "#EDBB00",
+      text: "text-white"
     }
   },
   {
@@ -38,11 +43,12 @@ const teams: TeamStats[] = [
     goals: 32,
     assists: 35,
     matches: 75,
-    titles: 2,
+    titles: 3,
     colors: {
       from: "#004170",
       via: "#DA291C",
-      to: "#004170"
+      to: "#004170",
+      text: "text-white"
     }
   },
   {
@@ -55,7 +61,8 @@ const teams: TeamStats[] = [
     colors: {
       from: "#F7B5CD",
       via: "#231F20",
-      to: "#F7B5CD"
+      to: "#F7B5CD",
+      text: "text-white"
     }
   },
   {
@@ -64,16 +71,17 @@ const teams: TeamStats[] = [
     goals: 112,
     assists: 58,
     matches: 191,
-    titles: 4,
+    titles: 6,
     colors: {
       from: "#74ACDF",
-      via: "#FFFFFF",
-      to: "#74ACDF"
+      via: "#F6B40E",
+      to: "#74ACDF",
+      text: "text-white"
     }
   },
   {
     name: "Newell's Old Boys",
-    period: "1994-2000",
+    period: "1994-2000 (Inferiores)",
     goals: 234,
     assists: 0,
     matches: 176,
@@ -81,110 +89,182 @@ const teams: TeamStats[] = [
     colors: {
       from: "#E30613",
       via: "#000000",
-      to: "#E30613"
+      to: "#E30613",
+      text: "text-white"
     }
   }
 ]
 
-export function CareerStats() {
+export const CareerStats = memo(function CareerStats() {
   const [selectedTeam, setSelectedTeam] = useState<TeamStats>(teams[0])
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
+  const StatItem = ({ icon: Icon, value, label, delay }: { icon: any, value: number, label: string, delay: number }) => (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay }}
+      className="bg-black/20 backdrop-blur-md rounded-2xl p-5 text-center transform hover:scale-105 transition-transform duration-300 border border-white/10"
+    >
+      <div className="flex justify-center mb-2">
+        <div className="p-2 rounded-full bg-white/20">
+          <Icon className="w-5 h-5 text-white" />
+        </div>
+      </div>
+      <motion.p 
+        key={value}
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="text-3xl font-bold text-white mb-1"
+      >
+        {value}
+      </motion.p>
+      <p className="text-white/80 text-sm font-medium uppercase tracking-wider">{label}</p>
+    </motion.div>
+  )
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 py-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center"
+        className="text-center space-y-2"
       >
-        <h2 className="text-2xl font-bold mb-2">Estadísticas de Carrera</h2>
-        <p className="text-muted-foreground">Los números que definen una leyenda</p>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-2">
+           <Activity className="w-4 h-4" /> Trayectoria Profesional
+        </div>
+        <h2 className="text-3xl font-bold tracking-tight">Estadísticas por Equipo</h2>
+        <p className="text-muted-foreground max-w-lg mx-auto">
+          Explora los números detallados de Messi en cada etapa de su legendaria carrera.
+        </p>
       </motion.div>
       
       {/* Team Selector Dropdown */}
-      <div className="max-w-md mx-auto relative">
+      <div className="max-w-md mx-auto relative z-20">
         <motion.button
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="w-full bg-card border border-border rounded-xl px-6 py-4 flex items-center justify-between hover:bg-accent transition-all duration-200"
-          whileHover={{ scale: 1.02 }}
+          className="w-full bg-background/50 hover:bg-background/80 backdrop-blur-md border border-border rounded-2xl px-6 py-4 flex items-center justify-between shadow-lg transition-all duration-200 group"
           whileTap={{ scale: 0.98 }}
         >
-          <div className="text-left">
-            <p className="text-lg font-bold">{selectedTeam.name}</p>
-            <p className="text-xs text-muted-foreground">{selectedTeam.period}</p>
+          <div className="flex items-center gap-4">
+            <div 
+              className="w-10 h-10 rounded-full bg-gradient-to-br shadow-inner" 
+              style={{ backgroundImage: `linear-gradient(135deg, ${selectedTeam.colors.from}, ${selectedTeam.colors.via})` }} 
+            />
+            <div className="text-left">
+              <p className="font-bold text-lg leading-tight group-hover:text-primary transition-colors">{selectedTeam.name}</p>
+              <p className="text-xs text-muted-foreground font-medium">{selectedTeam.period}</p>
+            </div>
           </div>
-          <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+          <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform duration-300", isDropdownOpen ? 'rotate-180' : '')} />
         </motion.button>
         
-        {isDropdownOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute top-full mt-2 w-full bg-card border border-border rounded-xl shadow-2xl overflow-hidden z-50"
-          >
-            {teams.map((team, index) => (
-              <motion.button
-                key={team.name}
-                onClick={() => {
-                  setSelectedTeam(team)
-                  setIsDropdownOpen(false)
-                }}
-                className={`w-full px-6 py-3 text-left hover:bg-accent transition-colors duration-200 ${
-                  selectedTeam.name === team.name ? 'bg-accent/50' : ''
-                } ${index !== teams.length - 1 ? 'border-b border-border' : ''}`}
-                whileHover={{ x: 5 }}
-              >
-                <p className="font-semibold">{team.name}</p>
-                <p className="text-xs text-muted-foreground">{team.period}</p>
-              </motion.button>
-            ))}
-          </motion.div>
-        )}
+        <AnimatePresence>
+          {isDropdownOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-full mt-2 w-full bg-card/95 backdrop-blur-xl border border-border/50 rounded-2xl shadow-2xl overflow-hidden py-2"
+            >
+              {teams.map((team) => (
+                <button
+                  key={team.name}
+                  onClick={() => {
+                    setSelectedTeam(team)
+                    setIsDropdownOpen(false)
+                  }}
+                  className={cn(
+                    "w-full px-6 py-3 flex items-center gap-4 hover:bg-muted/50 transition-colors duration-200",
+                    selectedTeam.name === team.name ? 'bg-primary/5' : ''
+                  )}
+                >
+                  <div 
+                    className="w-8 h-8 rounded-full shadow-sm"
+                    style={{ background: `linear-gradient(135deg, ${team.colors.from}, ${team.colors.via})` }}
+                  />
+                  <div className="text-left">
+                    <p className={cn("font-semibold text-sm", selectedTeam.name === team.name ? 'text-primary' : 'text-foreground')}>{team.name}</p>
+                    <p className="text-xs text-muted-foreground">{team.period}</p>
+                  </div>
+                  {selectedTeam.name === team.name && (
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary" />
+                  )}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
       {/* Stats Card */}
-      <motion.div
-        key={selectedTeam.name}
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        className="max-w-2xl mx-auto"
-      >
-        <div
-          className="rounded-2xl p-8 shadow-xl border border-white/20"
-          style={{
-            background: `linear-gradient(135deg, ${selectedTeam.colors.from}dd 0%, ${selectedTeam.colors.via}dd 50%, ${selectedTeam.colors.to}dd 100%)`
-          }}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selectedTeam.name}
+          initial={{ opacity: 0, y: 20, rotateX: -10 }}
+          animate={{ opacity: 1, y: 0, rotateX: 0 }}
+          exit={{ opacity: 0, y: -20, rotateX: 10 }}
+          transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
+          className="max-w-4xl mx-auto"
         >
-          <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <h3 className="text-2xl font-bold text-white drop-shadow-lg">{selectedTeam.name}</h3>
-            <span className="text-sm text-white font-semibold bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
-              {selectedTeam.period}
-            </span>
+          <div
+            className="rounded-[2.5rem] p-8 md:p-12 shadow-2xl relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, ${selectedTeam.colors.from}cc, ${selectedTeam.colors.via}cc, ${selectedTeam.colors.to}cc)`,
+            }}
+          >
+            {/* Background Texture/Noise */}
+             <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+             
+             {/* Decorative Circles */}
+             <div className="absolute -top-32 -right-32 w-96 h-96 bg-white/10 blur-3xl rounded-full" />
+             <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-black/10 blur-3xl rounded-full" />
+
+            <div className="relative z-10">
+              <div className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
+                 <div className="text-center md:text-left">
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }} 
+                      animate={{ opacity: 1, x: 0 }}
+                      className="inline-block px-4 py-1.5 rounded-full bg-black/20 text-white/90 backdrop-blur-md text-sm font-medium mb-3 border border-white/10"
+                    >
+                      {selectedTeam.period}
+                    </motion.div>
+                    <h3 className="text-4xl md:text-5xl font-black text-white drop-shadow-xl tracking-tight">
+                      {selectedTeam.name}
+                    </h3>
+                 </div>
+                 
+                 {/* Team Badge Placeholder - could be an image */}
+                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-lg">
+                    <Trophy className="w-10 h-10 text-white/80" />
+                 </div>
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <StatItem icon={Target} value={selectedTeam.goals} label="Goles" delay={0.1} />
+                <StatItem icon={Zap} value={selectedTeam.assists} label="Asistencias" delay={0.2} />
+                <StatItem icon={Activity} value={selectedTeam.matches} label="Partidos" delay={0.3} />
+                <StatItem icon={Trophy} value={selectedTeam.titles} label="Títulos" delay={0.4} />
+              </div>
+
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+                className="mt-8 pt-6 border-t border-white/10 text-center md:text-right"
+              >
+                 <Badge variant="outline" className="text-white border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm">
+                    {selectedTeam.goals > 0 ? (selectedTeam.goals / selectedTeam.matches).toFixed(2) : 0} goles por partido
+                 </Badge>
+              </motion.div>
+            </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
-              <p className="text-4xl font-bold text-white drop-shadow-lg mb-1">{selectedTeam.goals}</p>
-              <p className="text-sm text-white font-medium">Goles</p>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
-              <p className="text-4xl font-bold text-white drop-shadow-lg mb-1">{selectedTeam.assists}</p>
-              <p className="text-sm text-white font-medium">Asistencias</p>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
-              <p className="text-4xl font-bold text-white drop-shadow-lg mb-1">{selectedTeam.matches}</p>
-              <p className="text-sm text-white font-medium">Partidos</p>
-            </div>
-            <div className="bg-white/20 backdrop-blur-sm rounded-xl p-4 text-center">
-              <p className="text-4xl font-bold text-white drop-shadow-lg mb-1">{selectedTeam.titles}</p>
-              <p className="text-sm text-white font-medium">Títulos</p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   )
-}
+})
 
