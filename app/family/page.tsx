@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { HeaderNav } from "@/components/header-nav"
 import { Footer } from "@/components/footer"
 import { FamilyTree } from "@/components/family/family-tree"
@@ -50,7 +50,7 @@ export default function FamilyPage() {
     loadFamily()
   }, [toast])
 
-  const handleCreatePerson = (personData: Omit<FamilyMember, "id" | "createdAt" | "updatedAt">) => {
+  const handleCreatePerson = useCallback((personData: Omit<FamilyMember, "id" | "createdAt" | "updatedAt">) => {
     try {
       const newPerson: FamilyMember = {
         ...personData,
@@ -75,9 +75,9 @@ export default function FamilyPage() {
         variant: "destructive",
       })
     }
-  }
+  }, [family, toast])
 
-  const handleUpdatePerson = (personData: Omit<FamilyMember, "id" | "createdAt" | "updatedAt">) => {
+  const handleUpdatePerson = useCallback((personData: Omit<FamilyMember, "id" | "createdAt" | "updatedAt">) => {
     if (!editingPerson) return
 
     try {
@@ -106,9 +106,9 @@ export default function FamilyPage() {
         variant: "destructive",
       })
     }
-  }
+  }, [family, editingPerson, toast])
 
-  const handleDeletePerson = (personId: string) => {
+  const handleDeletePerson = useCallback((personId: string) => {
     const person = family.find((p) => p.id === personId)
     if (person) {
       setDeleteConfirmation({
@@ -117,9 +117,9 @@ export default function FamilyPage() {
         personName: person.name,
       })
     }
-  }
+  }, [family])
 
-  const confirmDeletePerson = () => {
+  const confirmDeletePerson = useCallback(() => {
     try {
       const updatedFamily = family.filter((person) => person.id !== deleteConfirmation.personId)
       setFamily(updatedFamily)
@@ -138,12 +138,12 @@ export default function FamilyPage() {
     } finally {
       setDeleteConfirmation({ open: false, personId: "", personName: "" })
     }
-  }
+  }, [family, deleteConfirmation.personId, toast])
 
-  const handleEdit = (person: FamilyMember) => {
+  const handleEdit = useCallback((person: FamilyMember) => {
     setEditingPerson(person)
     setIsFormOpen(true)
-  }
+  }, [])
 
   const handleImportFamily = (importedFamily: FamilyMember[]) => {
     try {
@@ -183,7 +183,8 @@ export default function FamilyPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <HeaderNav />
-        <main className="flex-1 px-4 md:px-8 py-8">
+        <main className="flex-1 px-4 md:px-8 pt-24 pb-8 bg-gradient-to-br from-background via-background to-blue-50/30 dark:to-blue-950/20 relative">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-100/20 via-transparent to-transparent dark:from-blue-900/20 pointer-events-none" />
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
