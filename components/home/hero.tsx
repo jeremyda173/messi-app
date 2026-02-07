@@ -33,7 +33,7 @@ export function Hero() {
   return (
     <section 
       ref={containerRef} 
-      className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-black pt-20"
+      className="relative min-h-[95vh] flex items-center justify-center overflow-hidden bg-black pt-32 pb-32"
     >
       {/* Dynamic Background */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
@@ -145,14 +145,14 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/50 z-20"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 z-20"
       >
         <span className="text-xs uppercase tracking-widest">Descubre más</span>
         <motion.div
-            animate={{ y: [0, 8, 0] }}
+            animate={{ y: [-4, 8, -4] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
         >
-            <ChevronDown className="w-6 h-6" />
+            <ChevronDown className="w-6 h-8" />
         </motion.div>
       </motion.div>
 
