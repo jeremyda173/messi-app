@@ -17,7 +17,7 @@ export function Footer() {
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 py-16 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8">
           
           {/* Brand Section */}
           <div className="space-y-6">
@@ -35,9 +35,9 @@ export function Footer() {
             </p>
             <div className="flex gap-4">
               {[
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Twitter, href: "#", label: "Twitter" },
-                { icon: Github, href: "#", label: "GitHub" },
+                { icon: Instagram, href: "https://www.instagram.com/leomessi/", label: "Instagram" },
+                { icon: Twitter, href: "https://twitter.com/TeamMessi", label: "Twitter" },
+                { icon: Github, href: "https://github.com/jeremyda173", label: "GitHub" },
               ].map((social) => {
                 const Icon = social.icon
                 return (
@@ -98,28 +98,6 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-white font-semibold text-sm tracking-wider uppercase mb-6">Mantente al día</h3>
-            <p className="text-slate-400 text-sm mb-4">
-              Recibe las últimas noticias y actualizaciones sobre estadísticas y partidos.
-            </p>
-            <div className="space-y-3">
-              <div className="relative">
-                <Input 
-                  type="email" 
-                  placeholder="tu@email.com" 
-                  className="bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500/50 focus:ring-blue-500/20 transition-all pl-4 pr-10"
-                />
-                <Mail className="absolute right-3 top-2.5 h-5 w-5 text-slate-500" />
-              </div>
-              <Button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all shadow-lg shadow-blue-500/20">
-                Suscribirse
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
           </div>
         </div>
 
