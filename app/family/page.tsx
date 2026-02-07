@@ -183,7 +183,7 @@ export default function FamilyPage() {
   return (
     <div className="min-h-screen flex flex-col">
       <HeaderNav />
-        <main className="flex-1 px-4 md:px-8 pt-24 pb-8 bg-gradient-to-br from-background via-background to-blue-50/30 dark:to-blue-950/20 relative">
+        <main className="flex-1 px-4 md:px-8 pt-32 pb-8 bg-gradient-to-br from-background via-background to-blue-50/30 dark:to-blue-950/20 relative">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-100/20 via-transparent to-transparent dark:from-blue-900/20 pointer-events-none" />
         <div className="flex flex-col space-y-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
