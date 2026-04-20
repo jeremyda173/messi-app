@@ -54,9 +54,9 @@ const teams: TeamStats[] = [
   {
     name: "Inter Miami",
     period: "2023-presente",
-    goals: 33,
-    assists: 18,
-    matches: 37,
+    goals: 34,
+    assists: 19,
+    matches: 40,
     titles: 2,
     colors: {
       from: "#F7B5CD",
