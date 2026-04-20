@@ -7,6 +7,7 @@ import { StatsFilters } from "@/components/statistics/stats-filters"
 import { storage } from "@/lib/storage"
 import { seedMatches } from "@/lib/seed-data"
 import type { Match } from "@/lib/types"
+import { getMessiStats } from "@/lib/api"
 import dynamic from "next/dynamic"
 
 const CareerStats = dynamic(() => import("@/components/statistics/career-stats").then((mod) => mod.CareerStats), {
@@ -47,6 +48,23 @@ export default function StatisticsPage() {
     }
     setMatches(loadedMatches)
     setFilteredMatches(loadedMatches)
+  }, [])
+
+  useEffect(() => {
+    async function fetchLiveApiData() {
+      setLoadingApi(true)
+      try {
+        const liveData = await getMessiStats(2024)
+        if (liveData) {
+          setApiStats(liveData as any)
+        }
+      } catch (err) {
+        console.error("Failed to load live API stats:", err)
+      } finally {
+        setLoadingApi(false)
+      }
+    }
+    fetchLiveApiData()
   }, [])
 
   const handleFilterChange = useCallback((filtered: Match[]) => {
