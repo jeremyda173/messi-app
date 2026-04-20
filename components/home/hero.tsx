@@ -10,7 +10,7 @@ import { useRef } from "react"
 const achievements = [
   { icon: Trophy, label: "8 Balones de Oro", color: "text-amber-400" },
   { icon: Crown, label: "Campeón del Mundo", color: "text-blue-400" },
-  { icon: Star, label: "46 Títulos Oficiales", color: "text-purple-400" },
+  { icon: Star, label: "48 Títulos Oficiales", color: "text-purple-400" },
   { icon: Target, label: "+850 Goles", color: "text-green-400" },
 ]
 
