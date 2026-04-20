@@ -15,7 +15,7 @@ interface PlayerStats {
   weight: string;
   injured: boolean;
   photo: string;
-  seasons: {
+  statistics: {
     team: {
       id: number;
       name: string;
