@@ -17,7 +17,7 @@ export function Footer() {
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 py-16 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-8">
           
           {/* Brand Section */}
           <div className="space-y-6">
@@ -71,28 +71,6 @@ export function Footer() {
                     className="text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200 flex items-center gap-2 group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-blue-500/0 group-hover:bg-blue-500 transition-colors duration-200" />
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal/Resources */}
-          <div>
-            <h3 className="text-white font-semibold text-sm tracking-wider uppercase mb-6">Comunidad</h3>
-            <ul className="space-y-4">
-              {[
-                { name: "Sobre el proyecto", href: "#" },
-                { name: "Contacto", href: "#" },
-                { name: "Política de Privacidad", href: "#" },
-                { name: "Términos de Uso", href: "#" },
-              ].map((item) => (
-                <li key={item.name}>
-                  <Link 
-                    href={item.href} 
-                    className="text-slate-400 hover:text-blue-400 text-sm transition-colors duration-200"
-                  >
                     {item.name}
                   </Link>
                 </li>
