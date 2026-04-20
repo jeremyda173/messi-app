@@ -3,7 +3,7 @@
 import { HeaderNav } from "@/components/header-nav"
 import { Footer } from "@/components/footer"
 import { motion } from "framer-motion"
-import { MapPin, Calendar, ArrowRight, Shirt } from "lucide-react"
+import { MapPin, Calendar, ArrowRight, Shirt, Trophy } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const timeline = [
@@ -78,6 +78,15 @@ const timeline = [
     icon: Shirt,
     color: "bg-pink-500",
     side: "right"
+  },
+  {
+    year: "2024",
+    title: "Bicampeón y Récord Histórico",
+    desc: "Gana su segunda Copa América consecutiva con Argentina y el Supporters' Shield con Inter Miami, convirtiéndose en el jugador con más títulos de la historia.",
+    team: "Argentina / Inter Miami",
+    icon: Trophy,
+    color: "bg-sky-400",
+    side: "left"
   },
 ]
 
