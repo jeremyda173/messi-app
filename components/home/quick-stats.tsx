@@ -10,6 +10,15 @@ import { Trophy, Target, Users, Clock } from "lucide-react"
 import { motion } from "framer-motion"
 import { storage } from "@/lib/storage"
 import { seedMatches } from "@/lib/seed-data"
+import { getMessiStats } from "@/lib/api"
+
+// Base histórica hasta inicios de 2024
+const HISTORICAL_BASE = {
+  totalMatches: 1047,
+  totalGoals: 821,
+  totalAssists: 361,
+  totalMinutes: 86000,
+}
 
 interface QuickStatsData {
   totalMatches: number
@@ -53,28 +62,44 @@ export function QuickStats() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Initialize with seed data if no matches exist
-    let matches = storage.getMatches()
-    if (matches.length === 0) {
-      storage.saveMatches(seedMatches)
-      matches = seedMatches
+    async function fetchRealTimeStats() {
+      try {
+        const stats2024 = await getMessiStats(2024)
+        
+        if (stats2024 && stats2024.statistics) {
+          // Sumamos todas las competiciones del 2024
+          const currentSeason = stats2024.statistics.reduce((acc, s) => ({
+            matches: acc.matches + (s.games.appearences || 0),
+            goals: acc.goals + (s.goals.total || 0),
+            assists: acc.assists + (s.goals.assists || 0),
+            minutes: acc.minutes + (s.games.minutes || 0),
+          }), { matches: 0, goals: 0, assists: 0, minutes: 0 })
+
+          setStats({
+            totalMatches: HISTORICAL_BASE.totalMatches + currentSeason.matches,
+            totalGoals: HISTORICAL_BASE.totalGoals + currentSeason.goals,
+            totalAssists: HISTORICAL_BASE.totalAssists + currentSeason.assists,
+            totalMinutes: HISTORICAL_BASE.totalMinutes + currentSeason.minutes,
+          })
+        } else {
+          // Fallback a cálculos locales si la API falla
+          const matches = storage.getMatches().length > 0 ? storage.getMatches() : seedMatches
+          const calculated = matches.reduce((acc, m) => ({
+            totalMatches: acc.totalMatches + 1,
+            totalGoals: acc.totalGoals + m.goals,
+            totalAssists: acc.totalAssists + m.assists,
+            totalMinutes: acc.totalMinutes + m.minutes,
+          }), { totalMatches: 820, totalGoals: 821, totalAssists: 361, totalMinutes: 85000 })
+          setStats(calculated)
+        }
+      } catch (error) {
+        console.error("Error fetching live stats:", error)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
-    // Calculate stats from matches
-    const calculatedStats = matches.reduce(
-      (acc, match) => ({
-        totalMatches: acc.totalMatches + 1,
-        totalGoals: acc.totalGoals + match.goals,
-        totalAssists: acc.totalAssists + match.assists,
-        totalMinutes: acc.totalMinutes + match.minutes,
-      }),
-      { totalMatches: 0, totalGoals: 0, totalAssists: 0, totalMinutes: 0 },
-    )
-
-    setTimeout(() => {
-      setStats(calculatedStats)
-      setIsLoading(false)
-    }, 500)
+    fetchRealTimeStats()
   }, [])
 
   const statsCards = [
