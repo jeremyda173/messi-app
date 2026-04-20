@@ -54,10 +54,10 @@ const teams: TeamStats[] = [
   {
     name: "Inter Miami",
     period: "2023-presente",
-    goals: 34,
-    assists: 19,
-    matches: 40,
-    titles: 2,
+    goals: 78,
+    assists: 27,
+    matches: 98,
+    titles: 3,
     colors: {
       from: "#F7B5CD",
       via: "#231F20",
@@ -68,10 +68,10 @@ const teams: TeamStats[] = [
   {
     name: "Selección Argentina",
     period: "2005-presente",
-    goals: 112,
-    assists: 58,
-    matches: 191,
-    titles: 6,
+    goals: 122,
+    assists: 45,
+    matches: 198,
+    titles: 7,
     colors: {
       from: "#74ACDF",
       via: "#F6B40E",
