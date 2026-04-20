@@ -3,7 +3,7 @@
 import { HeaderNav } from "@/components/header-nav"
 import { Footer } from "@/components/footer"
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
-import { Trophy, Star, Crown, Medal, Award } from "lucide-react"
+import { Trophy, Star, Crown, Medal, Award, Shield } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useRef, useState } from "react"
 
@@ -39,7 +39,8 @@ const trophies: { category: string; items: TrophyItem[] }[] = [
       { name: "Mundial de Clubes", count: 3, years: "", icon: Crown, color: "text-emerald-400", bg: "bg-emerald-400/10", border: "border-emerald-400/20" },
       { name: "Supercopa de Europa", count: 3, years: "", icon: Award, color: "text-cyan-400", bg: "bg-cyan-400/10", border: "border-cyan-400/20" },
       { name: "Ligue 1", count: 2, years: "PSG", icon: Trophy, color: "text-blue-600", bg: "bg-blue-600/10", border: "border-blue-600/20" },
-      { name: "Leagues Cup", count: 1, years: "Inter Miami", icon: Trophy, color: "text-pink-400", bg: "bg-pink-400/10", border: "border-pink-400/20" },
+      { name: "Leagues Cup", count: 1, years: "Inter Miami (2023)", icon: Trophy, color: "text-pink-400", bg: "bg-pink-400/10", border: "border-pink-400/20" },
+      { name: "Supporters' Shield", count: 1, years: "Inter Miami (2024)", icon: Shield, color: "text-pink-500", bg: "bg-pink-500/10", border: "border-pink-500/20" },
     ]
   },
   {
