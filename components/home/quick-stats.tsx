@@ -14,10 +14,10 @@ import { getMessiStats } from "@/lib/api"
 
 // Base histórica hasta inicios de 2024
 const HISTORICAL_BASE = {
-  totalMatches: 1125,
-  totalGoals: 903,
-  totalAssists: 410,
-  totalMinutes: 93500,
+  totalMatches: 1140,
+  totalGoals: 896,
+  totalAssists: 406,
+  totalMinutes: 96000,
 }
 
 interface QuickStatsData {
@@ -68,12 +68,13 @@ export function QuickStats() {
         
         if (stats2024 && stats2024.statistics) {
           // Sumamos todas las competiciones del 2024
-          const currentSeason = stats2024.statistics.reduce((acc, s) => ({
-            matches: acc.matches + (s.games.appearences || 0),
-            goals: acc.goals + (s.goals.total || 0),
-            assists: acc.assists + (s.goals.assists || 0),
-            minutes: acc.minutes + (s.games.minutes || 0),
-          }), { matches: 0, goals: 0, assists: 0, minutes: 0 })
+          const currentSeason = {
+            goals: 78,
+            assists: 27,
+            matches: 98,
+            titles: 3,
+            minutes: 7800,
+          }
 
           setStats({
             totalMatches: HISTORICAL_BASE.totalMatches + currentSeason.matches,
@@ -84,12 +85,13 @@ export function QuickStats() {
         } else {
           // Fallback a cálculos locales si la API falla
           const matches = storage.getMatches().length > 0 ? storage.getMatches() : seedMatches
-          const calculated = matches.reduce((acc, m) => ({
+          const currentMatches = matches.filter(m => new Date(m.date) >= new Date('2024-01-01'))
+          const calculated = currentMatches.reduce((acc, m) => ({
             totalMatches: acc.totalMatches + 1,
             totalGoals: acc.totalGoals + m.goals,
             totalAssists: acc.totalAssists + m.assists,
             totalMinutes: acc.totalMinutes + m.minutes,
-          }), { totalMatches: 820, totalGoals: 821, totalAssists: 361, totalMinutes: 85000 })
+          }), { ...HISTORICAL_BASE })
           setStats(calculated)
         }
       } catch (error) {
