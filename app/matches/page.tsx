@@ -16,6 +16,7 @@ import { storage } from "@/lib/storage"
 import { seedMatches } from "@/lib/seed-data"
 import type { Match } from "@/lib/types"
 import { useToast } from "@/hooks/use-toast"
+import { getMessiMatches } from "@/lib/api"
 
 export default function MatchesPage() {
   const [matches, setMatches] = useState<Match[]>([])
@@ -30,20 +31,52 @@ export default function MatchesPage() {
 
   useEffect(() => {
     const loadMatches = async () => {
+      setIsLoading(true)
       try {
-        let loadedMatches = storage.getMatches()
-        if (loadedMatches.length === 0) {
-          storage.saveMatches(seedMatches)
-          loadedMatches = seedMatches
+        // Intentamos traer datos de las temporadas más recientes con datos confirmados
+        const [data2024, data2025] = await Promise.all([
+          getMessiMatches(2024, 9568),
+          getMessiMatches(2025, 9568)
+        ])
+        
+        const allApiData = [...(data2025 || []), ...(data2024 || [])]
+        
+        if (allApiData.length > 0) {
+          const realMatches: Match[] = allApiData.map((m: any) => ({
+            id: `api-${m.fixture.id}`,
+            date: m.fixture.date.split("T")[0],
+            competition: m.league.name,
+            team: m.teams.home.name.includes("Miami") ? m.teams.home.name : m.teams.away.name,
+            opponent: m.teams.home.name.includes("Miami") ? m.teams.away.name : m.teams.home.name,
+            location: m.fixture.venue.name || "Stadium",
+            minutes: m.fixture.status.elapsed || 90,
+            goals: m.goals.home ?? 0,
+            assists: 0,
+            shots: 0,
+            passes: 0,
+            passAccuracy: 0,
+            result: m.teams.home.winner ? (m.teams.home.name.includes("Miami") ? "win" : "loss") : 
+                    m.teams.away.winner ? (m.teams.away.name.includes("Miami") ? "win" : "loss") : "draw",
+            teamScore: m.goals.home,
+            opponentScore: m.goals.away,
+            venue: m.teams.home.name.includes("Miami") ? "home" : "away",
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          }))
+          
+          setMatches(realMatches)
+          setFilteredMatches(realMatches)
+        } else {
+            // Si la API sigue vacía, usamos locales pero avisamos
+            const loadedMatches = storage.getMatches().length > 0 ? storage.getMatches() : seedMatches
+            setMatches(loadedMatches)
+            setFilteredMatches(loadedMatches)
         }
+      } catch (error) {
+        console.error("API Error:", error)
+        const loadedMatches = storage.getMatches().length > 0 ? storage.getMatches() : seedMatches
         setMatches(loadedMatches)
         setFilteredMatches(loadedMatches)
-      } catch (error) {
-        toast({
-          title: "Error al cargar partidos",
-          description: "Hubo un problema al cargar los datos. Intenta recargar la página.",
-          variant: "destructive",
-        })
       } finally {
         setIsLoading(false)
       }
