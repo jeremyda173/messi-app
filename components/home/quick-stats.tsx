@@ -40,7 +40,7 @@ function AnimatedCounter({ value, duration = 2000 }: { value: number; duration?:
     return () => cancelAnimationFrame(animationFrame)
   }, [value, duration])
 
-  return <span>{count.toLocaleString()}</span>
+  return <span>{count.toLocaleString("en-US")}</span>
 }
 
 export function QuickStats() {
@@ -179,7 +179,7 @@ export function QuickStats() {
                   </div>
                   <div className="flex justify-between text-xs text-muted-foreground">
                     <span>0</span>
-                    <span>{stat.maxValue.toLocaleString()}</span>
+                    <span>{stat.maxValue.toLocaleString("en-US")}</span>
                   </div>
                 </div>
 
