@@ -59,7 +59,6 @@ export default function StatisticsPage() {
           setApiStats(liveData as any)
         }
       } catch (err) {
-        console.error("Failed to load live API stats:", err)
       } finally {
         setLoadingApi(false)
       }
