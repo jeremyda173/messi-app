@@ -120,7 +120,6 @@ export async function getMessiStats(season: number = 2023) {
     const data = await response.json();
     return data.response[0] as PlayerStats;
   } catch (error) {
-    console.error("Failed to fetch Messi stats:", error);
     return null;
   }
 }
@@ -152,7 +151,6 @@ export async function getMessiMatches(season: number = 2024, teamId: number = 95
         const data = await response.json();
         return data.response;
     } catch (error) {
-        console.error("Failed to fetch matches:", error);
         return [];
     }
 }
