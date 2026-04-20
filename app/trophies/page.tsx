@@ -38,9 +38,13 @@ const trophies: { category: string; items: TrophyItem[] }[] = [
       { name: "Copa del Rey", count: 7, years: "", icon: Trophy, color: "text-rose-400", bg: "bg-rose-400/10", border: "border-rose-400/20" },
       { name: "Mundial de Clubes", count: 3, years: "", icon: Crown, color: "text-emerald-400", bg: "bg-emerald-400/10", border: "border-emerald-400/20" },
       { name: "Supercopa de Europa", count: 3, years: "", icon: Award, color: "text-cyan-400", bg: "bg-cyan-400/10", border: "border-cyan-400/20" },
+      { name: "Supercopa de España", count: 8, years: "FC Barcelona", icon: Shield, color: "text-orange-400", bg: "bg-orange-400/10", border: "border-orange-400/20" },
       { name: "Ligue 1", count: 2, years: "PSG", icon: Trophy, color: "text-blue-600", bg: "bg-blue-600/10", border: "border-blue-600/20" },
+      { name: "Trophée des Champions", count: 1, years: "PSG", icon: Shield, color: "text-indigo-600", bg: "bg-indigo-600/10", border: "border-indigo-600/20" },
+      { name: "MLS Cup", count: 1, years: "Inter Miami (2025)", icon: Trophy, color: "text-pink-600", bg: "bg-pink-600/10", border: "border-pink-600/20" },
       { name: "Leagues Cup", count: 1, years: "Inter Miami (2023)", icon: Trophy, color: "text-pink-400", bg: "bg-pink-400/10", border: "border-pink-400/20" },
       { name: "Supporters' Shield", count: 1, years: "Inter Miami (2024)", icon: Shield, color: "text-pink-500", bg: "bg-pink-500/10", border: "border-pink-500/20" },
+      { name: "US Open Cup", count: 1, years: "Inter Miami (2025)", icon: Trophy, color: "text-pink-300", bg: "bg-pink-300/10", border: "border-pink-300/20" },
     ]
   },
   {
