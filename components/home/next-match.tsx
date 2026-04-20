@@ -20,7 +20,6 @@ export function NextMatch() {
         const upcoming = matches.find((m: any) => m.fixture.status.short === "NS") // Not Started
         setNextMatch(upcoming || matches[0])
       } catch (err) {
-        console.error(err)
       } finally {
         setLoading(true) 
         // Simulamos un poco de carga para elegancia
