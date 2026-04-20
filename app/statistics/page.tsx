@@ -33,8 +33,8 @@ export default function StatisticsPage() {
   const [apiStats, setApiStats] = useState({
     statistics: [{
         team: { name: "Inter Miami CF" },
-        games: { appearences: 40, rating: "8.2", minutes: 3100 },
-        goals: { total: 34, assists: 19 }
+        games: { appearences: 98, rating: "8.5", minutes: 8400 },
+        goals: { total: 78, assists: 27 }
     }]
   })
   const [loadingApi, setLoadingApi] = useState(false)
