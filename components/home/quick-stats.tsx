@@ -14,10 +14,10 @@ import { getMessiStats } from "@/lib/api"
 
 // Base histórica hasta inicios de 2024
 const HISTORICAL_BASE = {
-  totalMatches: 1047,
-  totalGoals: 821,
-  totalAssists: 361,
-  totalMinutes: 86000,
+  totalMatches: 1125,
+  totalGoals: 903,
+  totalAssists: 410,
+  totalMinutes: 93500,
 }
 
 interface QuickStatsData {
@@ -93,7 +93,6 @@ export function QuickStats() {
           setStats(calculated)
         }
       } catch (error) {
-        console.error("Error fetching live stats:", error)
       } finally {
         setIsLoading(false)
       }
